@@ -1,19 +1,19 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:test_farma/common/router/app_router.dart';
-import 'package:test_farma/src/landing/controllers/landing_controller.dart';
 import 'package:test_farma/src/landing/widgets/app_bottom_bar.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
 
-  static final _drawerKey = GlobalKey<ScaffoldState>();
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
 
-  static final landingPageController =
-      Get.put(LandingPageController(), permanent: false);
+class _LandingPageState extends State<LandingPage> {
+  final _drawerKey = GlobalKey<ScaffoldState>();
 
-  static final router = AppRouter();
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +21,21 @@ class LandingPage extends StatelessWidget {
       key: _drawerKey,
       drawer: const Drawer(),
       body: _NestedNavigator(
-        routerDelegate: router.nestedRouterDelegate,
+        routerDelegate: nestedRouterDelegate,
       ),
-      bottomNavigationBar: Obx(() {
-        return AppBottomBar(
-          currentIndex: landingPageController.tabIndex.value,
-          onTap: onTap,
-        );
-      }),
+      bottomNavigationBar: AppBottomBar(
+        currentIndex: currentIndex,
+        onTap: onTap,
+      ),
     );
   }
 
   void onTap(int index) {
     if (index < 2) {
-      // change tab index
-      landingPageController.changeTabIndex(index);
-      // select page
-      switch (index) {
-        case 0:
-          return router.nestedRouterDelegate.beamToNamed('/contacts');
-        case 1:
-          return router.nestedRouterDelegate.beamToNamed('/favorites');
-      }
+      nestedRouterDelegate
+          .beamTo(index == 0 ? ContactsLocation() : FavoritesLocation());
+
+      print(nestedRouterDelegate.currentBeamLocation);
     } else {
       _drawerKey.currentState?.openDrawer();
     }
