@@ -1,20 +1,52 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:test_farma/common/router/app_router.dart';
 
-class AppBottomBar extends StatelessWidget {
+typedef OnShowDrawer = VoidCallback;
+
+class AppBottomBar extends StatefulWidget {
   const AppBottomBar({
     Key? key,
-    required this.currentIndex,
-    this.onTap,
+    required this.beamerKey,
+    required this.onShowDrawer,
   }) : super(key: key);
 
-  final int currentIndex;
-  final void Function(int index)? onTap;
+  final GlobalKey<BeamerState> beamerKey;
+  final OnShowDrawer onShowDrawer;
+
+  @override
+  State<AppBottomBar> createState() => _AppBottomBarState();
+}
+
+class _AppBottomBarState extends State<AppBottomBar> {
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    widget.beamerKey.currentState?.routerDelegate
+        .addListener(() => _updateCurrentIndex());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.beamerKey.currentState?.routerDelegate
+        .removeListener(_updateCurrentIndex);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: onTap,
-      currentIndex: currentIndex,
+      onTap: (index) {
+        if (index < 2) {
+          widget.beamerKey.currentState?.routerDelegate
+              .beamToNamed(index == 0 ? '/contacts' : '/favorites');
+        } else {
+          widget.onShowDrawer.call();
+        }
+      },
+      currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
@@ -31,5 +63,15 @@ class AppBottomBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _updateCurrentIndex() {
+    final index =
+        (widget.beamerKey.currentState?.currentBeamLocation is ContactsLocation)
+            ? 0
+            : 1;
+    if (index != _currentIndex) {
+      setState(() => _currentIndex = index);
+    }
   }
 }

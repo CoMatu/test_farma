@@ -13,46 +13,23 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final _drawerKey = GlobalKey<ScaffoldState>();
 
-  int currentIndex = 0;
+  final _beamerKey = GlobalKey<BeamerState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
       drawer: const Drawer(),
-      body: _NestedNavigator(
+      body: Beamer(
+        key: _beamerKey,
         routerDelegate: nestedRouterDelegate,
       ),
       bottomNavigationBar: AppBottomBar(
-        currentIndex: currentIndex,
-        onTap: onTap,
+        beamerKey: _beamerKey,
+        onShowDrawer: () {
+          _drawerKey.currentState?.openDrawer();
+        },
       ),
-    );
-  }
-
-  void onTap(int index) {
-    if (index < 2) {
-      nestedRouterDelegate
-          .beamTo(index == 0 ? ContactsLocation() : FavoritesLocation());
-
-      print(nestedRouterDelegate.currentBeamLocation);
-    } else {
-      _drawerKey.currentState?.openDrawer();
-    }
-  }
-}
-
-class _NestedNavigator extends StatelessWidget {
-  const _NestedNavigator({
-    required this.routerDelegate,
-  });
-
-  final BeamerDelegate routerDelegate;
-
-  @override
-  Widget build(BuildContext context) {
-    return Beamer(
-      routerDelegate: routerDelegate,
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:test_farma/src/contacts/presentation/pages/not_found_page.dart';
 import 'package:test_farma/src/favorites/presentation/pages/favorites_page.dart';
 import 'package:test_farma/src/landing/page/landing_page.dart';
 
+/// top-level pages
 BeamerDelegate routerDelegate = BeamerDelegate(
   initialPath: '/contacts',
   locationBuilder: RoutesLocationBuilder(
@@ -13,7 +14,9 @@ BeamerDelegate routerDelegate = BeamerDelegate(
     },
   ),
 );
-BeamerDelegate nestedRouterDelegate = BeamerDelegate(
+
+/// Nested pages
+final BeamerDelegate nestedRouterDelegate = BeamerDelegate(
   locationBuilder: (routeInformation, _) {
     if (routeInformation.location!.contains('contacts')) {
       return ContactsLocation();
