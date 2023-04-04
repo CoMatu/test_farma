@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:test_farma/src/auth/presentation/pages/login_page.dart';
 import 'package:test_farma/src/contacts/presentation/pages/contacts_page.dart';
 import 'package:test_farma/src/contacts/presentation/pages/not_found_page.dart';
 import 'package:test_farma/src/favorites/presentation/pages/favorites_page.dart';
@@ -10,7 +11,7 @@ BeamerDelegate routerDelegate = BeamerDelegate(
   initialPath: '/contacts',
   locationBuilder: RoutesLocationBuilder(
     routes: {
-      '*': (context, state, data) => const LandingPage(),
+      '*': (context, state, data) => LandingPage(),
     },
   ),
 );
@@ -22,10 +23,29 @@ final BeamerDelegate nestedRouterDelegate = BeamerDelegate(
       return ContactsLocation();
     } else if (routeInformation.location!.contains('favorites')) {
       return FavoritesLocation();
+    } else if (routeInformation.location!.contains('login')) {
+      return LoginLocation();
     }
     return NotFoundLocation();
   },
 );
+
+class LoginLocation extends BeamLocation<BeamState> {
+  @override
+  List<BeamPage> buildPages(BuildContext context, BeamState state) {
+    return const [
+      BeamPage(
+        key: ValueKey('login'),
+        title: 'Логин',
+        type: BeamPageType.noTransition,
+        child: LoginPage(),
+      ),
+    ];
+  }
+
+  @override
+  List<Pattern> get pathPatterns => ['/login'];
+}
 
 class ContactsLocation extends BeamLocation<BeamState> {
   @override
