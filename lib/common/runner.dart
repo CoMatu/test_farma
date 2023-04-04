@@ -6,6 +6,8 @@ import 'package:test_farma/common/farma_app.dart';
 
 class Runner {
   static Future<void> run() async {
+    await initializeApp();
+
     runZonedGuarded<void>(
       () {
         runApp(const FarmaApp());

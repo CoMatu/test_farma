@@ -14,12 +14,9 @@ class AppBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       onTap: onTap,
+      currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.menu),
-          label: 'Меню',
-        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.contacts),
           label: 'Контакты',
@@ -27,6 +24,10 @@ class AppBottomBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),
           label: 'Избранное',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu),
+          label: 'Меню',
         ),
       ],
     );

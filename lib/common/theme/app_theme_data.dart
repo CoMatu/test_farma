@@ -4,23 +4,12 @@ class AppThemeData {
   ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: Colors.amber,
-    buttonTheme: const ButtonThemeData(
-      buttonColor: Colors.amber,
-      disabledColor: Colors.grey,
-    ),
-    colorScheme: ColorScheme.fromSwatch()
-        .copyWith(secondary: Colors.red, brightness: Brightness.dark),
+    colorSchemeSeed: Colors.orange[700],
   );
 
   ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    primaryColor: Colors.blue,
-    buttonTheme: const ButtonThemeData(
-      buttonColor: Colors.blue,
-      disabledColor: Colors.grey,
-    ),
-    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.pink),
+    colorSchemeSeed: Colors.blue[700],
   );
 }
