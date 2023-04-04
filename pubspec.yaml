@@ -30,6 +30,8 @@ environment:
 dependencies:
   beamer: ^1.5.3
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   get: ^4.6.5
