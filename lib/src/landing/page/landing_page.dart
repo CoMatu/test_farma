@@ -25,7 +25,8 @@ class LandingPage extends GetView<AuthController> {
         log('$commentGreen${controller.state.toString()}');
 
         if (controller.state is Authenticated) {
-          _beamerKey.currentState?.routerDelegate.beamTo(ContactsLocation());
+          _beamerKey.currentState?.routerDelegate
+              .beamToNamed(AppPages.contacts.path);
         }
 
         return Beamer(
