@@ -40,8 +40,8 @@ class _AppBottomBarState extends State<AppBottomBar> {
     return BottomNavigationBar(
       onTap: (index) {
         if (index < 2) {
-          widget.beamerKey.currentState?.routerDelegate
-              .beamTo(index == 0 ? ContactsLocation() : FavoritesLocation());
+          widget.beamerKey.currentState?.routerDelegate.beamToNamed(
+              index == 0 ? AppPages.contacts.path : AppPages.favorites.path);
           // .beamToNamed(index == 0 ? '/contacts' : '/favorites');
         } else {
           widget.onShowDrawer.call();

@@ -39,13 +39,11 @@ final nestedRouterDelegate = BeamerDelegate(
   locationBuilder: (routeInformation, _) {
     log("${commentRed}routerDelegate | buildListener() | "
         "location: ${routeInformation.location}");
-    if (routeInformation.location!.contains(AppPages.contacts.toString())) {
+    if (routeInformation.location!.contains(AppPages.contacts.name)) {
       return ContactsLocation();
-    } else if (routeInformation.location!
-        .contains(AppPages.splash.toString())) {
+    } else if (routeInformation.location!.contains(AppPages.splash.name)) {
       return SplashLocation();
-    } else if (routeInformation.location!
-        .contains(AppPages.favorites.toString())) {
+    } else if (routeInformation.location!.contains(AppPages.favorites.name)) {
       return FavoritesLocation();
     } else {
       return NotFoundLocation();
@@ -61,8 +59,8 @@ final nestedRouterDelegate = BeamerDelegate(
       pathPatterns: [AppPages.login.path],
       guardNonMatching: true,
       check: (context, state) {
-        log("${commentCyan}routerDelegate | "
-            "BeamGuard | check() | is about to retrieve signedIn state");
+        // log("${commentCyan}routerDelegate | "
+        //     "BeamGuard | check() | is about to retrieve signedIn state");
 
         final signedIn = Get.find<AuthController>().state is Authenticated;
         log("${commentCyan}routerDelegate | "
@@ -82,7 +80,7 @@ class SplashLocation extends BeamLocation<BeamState> {
       BeamPage(
         key: const ValueKey(AppPages.splash),
         title: 'Loading...',
-        name: AppPages.splash.toString(),
+        name: AppPages.splash.name,
         type: BeamPageType.noTransition,
         child: const SplashPage(),
       ),
@@ -100,7 +98,7 @@ class LoginLocation extends BeamLocation<BeamState> {
       BeamPage(
         key: const ValueKey(AppPages.login),
         title: 'Логин',
-        name: AppPages.login.toString(),
+        name: AppPages.login.name,
         type: BeamPageType.noTransition,
         child: const LoginPage(),
       ),
@@ -118,7 +116,7 @@ class ContactsLocation extends BeamLocation<BeamState> {
       BeamPage(
         key: const ValueKey(AppPages.contacts),
         title: 'Контакты',
-        name: AppPages.contacts.toString(),
+        name: AppPages.contacts.name,
         type: BeamPageType.noTransition,
         child: const ContactsPage(),
       ),
@@ -137,7 +135,7 @@ class FavoritesLocation extends BeamLocation<BeamState> {
         key: const ValueKey(AppPages.favorites),
         title: 'Избранное',
         type: BeamPageType.noTransition,
-        name: AppPages.favorites.toString(),
+        name: AppPages.favorites.name,
         child: const FavoritesPage(),
       ),
     ];
@@ -154,7 +152,7 @@ class NotFoundLocation extends BeamLocation<BeamState> {
       BeamPage(
         key: const ValueKey(AppPages.notFound),
         title: '404 - Not Found',
-        name: AppPages.notFound.toString(),
+        name: AppPages.notFound.name,
         type: BeamPageType.noTransition,
         child: const NotFoundPage(),
       ),
