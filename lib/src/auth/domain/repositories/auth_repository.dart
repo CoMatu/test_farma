@@ -24,7 +24,7 @@ class AuthRepositoryImpl with AuthRepository {
 
   @override
   Future<bool> getAuthStatus() async {
-    // TODO: implement getAuthStatus
-    throw UnimplementedError();
+    await Future.delayed(const Duration(seconds: 3));
+    return true;
   }
 }

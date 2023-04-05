@@ -18,17 +18,23 @@ class AuthController extends GetxController {
   }
 
   Future<void> signIn(String email, String password) async {
+    _authenticationStateStream.value = AuthenticationLoading();
+
     final result = await authRepository.signIn();
     _authenticationStateStream.value =
         result ? const Authenticated() : UnAuthenticated();
   }
 
   void signOut() async {
+    _authenticationStateStream.value = AuthenticationLoading();
+
     await authRepository.logout();
     _authenticationStateStream.value = UnAuthenticated();
   }
 
   Future<void> _getAuthenticatedUser() async {
+    _authenticationStateStream.value = AuthenticationLoading();
+
     final result = await authRepository.getAuthStatus().catchError((error) {
       _authenticationStateStream.value =
           AuthenticationFailure(message: error.toString());

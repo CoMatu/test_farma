@@ -41,7 +41,8 @@ class _AppBottomBarState extends State<AppBottomBar> {
       onTap: (index) {
         if (index < 2) {
           widget.beamerKey.currentState?.routerDelegate
-              .beamToNamed(index == 0 ? '/contacts' : '/favorites');
+              .beamTo(index == 0 ? ContactsLocation() : FavoritesLocation());
+          // .beamToNamed(index == 0 ? '/contacts' : '/favorites');
         } else {
           widget.onShowDrawer.call();
         }

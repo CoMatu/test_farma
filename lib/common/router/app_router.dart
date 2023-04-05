@@ -1,14 +1,32 @@
+import 'dart:developer';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multitool/flutter_multitool.dart';
+import 'package:get/get.dart';
+import 'package:test_farma/src/auth/presentation/controller/auth_controller.dart';
+import 'package:test_farma/src/auth/presentation/controller/auth_state.dart';
 import 'package:test_farma/src/auth/presentation/pages/login_page.dart';
+import 'package:test_farma/src/auth/presentation/pages/splash_page.dart';
 import 'package:test_farma/src/contacts/presentation/pages/contacts_page.dart';
 import 'package:test_farma/src/contacts/presentation/pages/not_found_page.dart';
 import 'package:test_farma/src/favorites/presentation/pages/favorites_page.dart';
 import 'package:test_farma/src/landing/page/landing_page.dart';
 
+enum AppPages {
+  splash('/splash'),
+  contacts('/contacts'),
+  favorites('/favorites'),
+  login('/login'),
+  notFound('/notFound');
+
+  final String path;
+  const AppPages(this.path);
+}
+
 /// top-level pages
 BeamerDelegate routerDelegate = BeamerDelegate(
-  initialPath: '/contacts',
+  initialPath: AppPages.splash.path,
   locationBuilder: RoutesLocationBuilder(
     routes: {
       '*': (context, state, data) => LandingPage(),
@@ -17,83 +35,132 @@ BeamerDelegate routerDelegate = BeamerDelegate(
 );
 
 /// Nested pages
-final BeamerDelegate nestedRouterDelegate = BeamerDelegate(
+final nestedRouterDelegate = BeamerDelegate(
   locationBuilder: (routeInformation, _) {
-    if (routeInformation.location!.contains('contacts')) {
+    log("${commentRed}routerDelegate | buildListener() | "
+        "location: ${routeInformation.location}");
+    if (routeInformation.location!.contains(AppPages.contacts.toString())) {
       return ContactsLocation();
-    } else if (routeInformation.location!.contains('favorites')) {
+    } else if (routeInformation.location!
+        .contains(AppPages.splash.toString())) {
+      return SplashLocation();
+    } else if (routeInformation.location!
+        .contains(AppPages.favorites.toString())) {
       return FavoritesLocation();
-    } else if (routeInformation.location!.contains('login')) {
-      return LoginLocation();
+    } else {
+      return NotFoundLocation();
     }
-    return NotFoundLocation();
   },
+  buildListener: (context, delegate) {
+    final location = Beamer.of(context).configuration.location;
+    log("${commentCyan}routerDelegate | buildListener() | "
+        "location: $location");
+  },
+  guards: [
+    BeamGuard(
+      pathPatterns: [AppPages.login.path],
+      guardNonMatching: true,
+      check: (context, state) {
+        log("${commentCyan}routerDelegate | "
+            "BeamGuard | check() | is about to retrieve signedIn state");
+
+        final signedIn = Get.find<AuthController>().state is Authenticated;
+        log("${commentCyan}routerDelegate | "
+            "BeamGuard | check() | obtained signedIn state: $signedIn");
+        return signedIn;
+      },
+      beamTo: (context, origin, target) => LoginLocation(),
+      //beamToNamed: (origin, target) => '/login',
+    ),
+  ],
 );
 
-class LoginLocation extends BeamLocation<BeamState> {
+class SplashLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
-    return const [
+    return [
       BeamPage(
-        key: ValueKey('login'),
-        title: 'Логин',
+        key: const ValueKey(AppPages.splash),
+        title: 'Loading...',
+        name: AppPages.splash.toString(),
         type: BeamPageType.noTransition,
-        child: LoginPage(),
+        child: const SplashPage(),
       ),
     ];
   }
 
   @override
-  List<Pattern> get pathPatterns => ['/login'];
+  List<Pattern> get pathPatterns => [AppPages.splash.path];
+}
+
+class LoginLocation extends BeamLocation<BeamState> {
+  @override
+  List<BeamPage> buildPages(BuildContext context, BeamState state) {
+    return [
+      BeamPage(
+        key: const ValueKey(AppPages.login),
+        title: 'Логин',
+        name: AppPages.login.toString(),
+        type: BeamPageType.noTransition,
+        child: const LoginPage(),
+      ),
+    ];
+  }
+
+  @override
+  List<Pattern> get pathPatterns => [AppPages.login.path];
 }
 
 class ContactsLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
-    return const [
+    return [
       BeamPage(
-        key: ValueKey('contacts'),
+        key: const ValueKey(AppPages.contacts),
         title: 'Контакты',
+        name: AppPages.contacts.toString(),
         type: BeamPageType.noTransition,
-        child: ContactsPage(),
+        child: const ContactsPage(),
       ),
     ];
   }
 
   @override
-  List<Pattern> get pathPatterns => ['/contacts'];
+  List<Pattern> get pathPatterns => [AppPages.contacts.path];
 }
 
 class FavoritesLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
-    return const [
+    return [
       BeamPage(
-        key: ValueKey('favorites'),
+        key: const ValueKey(AppPages.favorites),
         title: 'Избранное',
         type: BeamPageType.noTransition,
-        child: FavoritesPage(),
+        name: AppPages.favorites.toString(),
+        child: const FavoritesPage(),
       ),
     ];
   }
 
   @override
-  List<Pattern> get pathPatterns => ['/favorites'];
+  List<Pattern> get pathPatterns => [AppPages.favorites.path];
 }
 
 class NotFoundLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
-    return const [
+    return [
       BeamPage(
-        key: ValueKey('notFound'),
+        key: const ValueKey(AppPages.notFound),
         title: '404 - Not Found',
+        name: AppPages.notFound.toString(),
         type: BeamPageType.noTransition,
-        child: NotFoundPage(),
+        child: const NotFoundPage(),
       ),
     ];
   }
 
   @override
-  List<Pattern> get pathPatterns => ['/notFound'];
+  List<Pattern> get pathPatterns => [AppPages.notFound.path];
 }
