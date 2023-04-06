@@ -12,14 +12,7 @@ class AuthenticationLoading extends AuthenticationState {}
 
 class UnAuthenticated extends AuthenticationState {}
 
-class Authenticated extends AuthenticationState {
-  const Authenticated(this.userModel);
-
-  final UserModel userModel;
-
-  @override
-  List<Object> get props => [userModel];
-}
+class Authenticated extends AuthenticationState {}
 
 class AuthenticationFailure extends AuthenticationState {
   final String message;

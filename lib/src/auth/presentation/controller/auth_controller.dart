@@ -27,7 +27,7 @@ class AuthController extends GetxController {
     );
     result.fold(
       (l) => _authenticationStateStream.value = UnAuthenticated(),
-      (r) => _authenticationStateStream.value = Authenticated(r),
+      (r) => _authenticationStateStream.value = Authenticated(),
     );
   }
 
@@ -45,7 +45,7 @@ class AuthController extends GetxController {
 
     result.fold(
       (l) => _authenticationStateStream.value = UnAuthenticated(),
-      (r) => _authenticationStateStream.value = Authenticated(r),
+      (r) => _authenticationStateStream.value = Authenticated(),
     );
   }
 }
