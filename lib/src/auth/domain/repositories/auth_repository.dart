@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:test_farma/src/auth/data/datasources/auth_api.dart';
+import 'package:test_farma/src/auth/data/datasources/auth_datasource.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';
 import 'package:test_farma/src/auth/data/models/user_model.dart';
 
@@ -15,9 +15,9 @@ abstract class AuthRepository {
 }
 
 class AuthRepositoryImpl with AuthRepository {
-  final AuthApi _authApi;
+  final AuthDatasource _authApi;
 
-  AuthRepositoryImpl(AuthApi authApi) : _authApi = authApi;
+  AuthRepositoryImpl(AuthDatasource authApi) : _authApi = authApi;
 
   @override
   Future<Either<Object, UserModel>> getAuthStatus() async {
@@ -44,7 +44,7 @@ class AuthRepositoryImpl with AuthRepository {
   @override
   Future<Either<Object, UserModel>> signIn(LoginRequest loginRequest) async {
     try {
-      final UserModel result = await _authApi.signIn(loginRequest);
+      final UserModel result = await _authApi.login(loginRequest);
 
       return Right(result);
     } catch (e) {
