@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_farma/common/errors/failure.dart';
 import 'package:test_farma/src/auth/data/datasources/auth_datasource.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';
@@ -23,7 +24,9 @@ class AuthRepositoryImpl with AuthRepository {
   Future<Either<Failure, bool>> getAuthStatus() async {
     await Future.delayed(const Duration(seconds: 3));
 
-    return const Right(true);
+    var tokens = Hive.box('token');
+
+    return Right(tokens.isNotEmpty);
   }
 
   @override

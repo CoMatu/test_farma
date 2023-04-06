@@ -6,8 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/common/di/app_binding.dart';
 import 'package:test_farma/common/farma_app.dart';
-import 'package:test_farma/src/auth/domain/repositories/auth_repository.dart';
-import 'package:test_farma/src/auth/presentation/controller/auth_controller.dart';
 
 class Runner {
   static Future<void> run() async {
@@ -29,6 +27,6 @@ class Runner {
     // удалить # из url
     Beamer.setPathUrlStrategy();
 
-    AppBinding().dependencies();
+    await AppBinding().dependencies();
   }
 }

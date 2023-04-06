@@ -54,23 +54,6 @@ final nestedRouterDelegate = BeamerDelegate(
     log("${commentCyan}routerDelegate | buildListener() | "
         "location: $location");
   },
-  guards: [
-    BeamGuard(
-      pathPatterns: [AppPages.login.path],
-      guardNonMatching: true,
-      check: (context, state) {
-        // log("${commentCyan}routerDelegate | "
-        //     "BeamGuard | check() | is about to retrieve signedIn state");
-
-        final signedIn = Get.find<AuthController>().state is Authenticated;
-        log("${commentCyan}routerDelegate | "
-            "BeamGuard | check() | obtained signedIn state: $signedIn");
-        return signedIn;
-      },
-      beamTo: (context, origin, target) => LoginLocation(),
-      //beamToNamed: (origin, target) => '/login',
-    ),
-  ],
 );
 
 class SplashLocation extends BeamLocation<BeamState> {

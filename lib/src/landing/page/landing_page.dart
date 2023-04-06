@@ -28,7 +28,8 @@ class LandingPage extends GetView<AuthController> {
         if (controller.state is Authenticated) {
           _beamerKey.currentState?.routerDelegate
               .beamToNamed(AppPages.contacts.path);
-        } else if (controller.state is UnAuthenticated) {
+        }
+        if (controller.state is UnAuthenticated) {
           _beamerKey.currentState?.routerDelegate
               .beamToNamed(AppPages.login.path);
         }

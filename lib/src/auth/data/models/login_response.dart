@@ -1,8 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+part 'login_response.g.dart';
+
+@HiveType(typeId: 1)
 class LoginResponse extends Equatable {
+  @HiveField(0)
   final String jwt;
+  @HiveField(1)
   final String refresh;
+  @HiveField(2)
   final int expiredIn;
 
   const LoginResponse({
