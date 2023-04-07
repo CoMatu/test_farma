@@ -4,8 +4,8 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multitool/flutter_multitool.dart';
 import 'package:get/get.dart';
-import 'package:test_farma/src/auth/presentation/controller/auth_controller.dart';
-import 'package:test_farma/src/auth/presentation/controller/auth_state.dart';
+import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
+import 'package:test_farma/src/auth/presentation/controllers/auth/auth_state.dart';
 import 'package:test_farma/src/auth/presentation/pages/login_page.dart';
 import 'package:test_farma/src/auth/presentation/pages/splash_page.dart';
 import 'package:test_farma/src/contacts/presentation/pages/contacts_page.dart';
@@ -45,6 +45,8 @@ final nestedRouterDelegate = BeamerDelegate(
       return SplashLocation();
     } else if (routeInformation.location!.contains(AppPages.favorites.name)) {
       return FavoritesLocation();
+    } else if (routeInformation.location!.contains(AppPages.login.name)) {
+      return LoginLocation();
     } else {
       return NotFoundLocation();
     }
@@ -54,6 +56,23 @@ final nestedRouterDelegate = BeamerDelegate(
     log("${commentCyan}routerDelegate | buildListener() | "
         "location: $location");
   },
+  // guards: [
+  //   BeamGuard(
+  //     pathPatterns: [AppPages.login.path],
+  //     guardNonMatching: true,
+  //     check: (context, state) {
+  //       // log("${commentCyan}routerDelegate | "
+  //       //     "BeamGuard | check() | is about to retrieve signedIn state");
+
+  //       final signedIn = Get.find<AuthController>().state is Authenticated;
+  //       log("${commentCyan}routerDelegate | "
+  //           "BeamGuard | check() | obtained signedIn state: $signedIn");
+  //       return signedIn;
+  //     },
+  //     beamToNamed: (origin, target) => AppPages.login.path,
+  //     //beamToNamed: (origin, target) => '/login',
+  //   ),
+  // ],
 );
 
 class SplashLocation extends BeamLocation<BeamState> {

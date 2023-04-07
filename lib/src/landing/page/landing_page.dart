@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multitool/constants.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/common/router/app_router.dart';
-import 'package:test_farma/src/auth/presentation/controller/auth_controller.dart';
-import 'package:test_farma/src/auth/presentation/controller/auth_state.dart';
+import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
+import 'package:test_farma/src/auth/presentation/controllers/auth/auth_state.dart';
 import 'package:test_farma/src/landing/widgets/app_bottom_bar.dart';
 
 class LandingPage extends GetView<AuthController> {

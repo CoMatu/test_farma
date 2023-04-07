@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_farma/src/auth/data/models/user_model.dart';
 
 class AuthenticationState extends Equatable {
   const AuthenticationState();
