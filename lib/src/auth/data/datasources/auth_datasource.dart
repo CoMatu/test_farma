@@ -5,7 +5,6 @@ import 'package:test_farma/common/cache/cache_manager.dart';
 import 'package:test_farma/common/constants/constants.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';
 import 'package:test_farma/src/auth/data/models/login_response.dart';
-import 'package:test_farma/src/auth/data/models/user_model.dart';
 
 class AuthDatasource {
   final ApiService _apiService;
@@ -17,10 +16,6 @@ class AuthDatasource {
   })  : _apiService = apiService,
         _cacheManager = cacheManager;
 
-  Future<UserModel> getUserFromStorage() async {
-    throw UnimplementedError();
-  }
-
   Future<bool> logout() async {
     return await Future.delayed(
       mockDuration,
@@ -30,10 +25,14 @@ class AuthDatasource {
 
   Future<LoginResponse> signIn(LoginRequest loginRequest) async {
     await Future.delayed(mockDuration);
-    try {
-      return await _apiService.login(loginRequest).timeout(httpTimeout);
-    } catch (e) {
-      rethrow;
-    }
+    return await _apiService.login(loginRequest).timeout(httpTimeout);
+  }
+
+  Future<bool> hasToken() async {
+    return await _cacheManager.hasToken();
+  }
+
+  Future<void> saveToken(LoginResponse result) async {
+    return await _cacheManager.saveToken(result);
   }
 }

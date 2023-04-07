@@ -5,6 +5,7 @@ import 'package:test_farma/common/router/app_router.dart';
 import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
 import 'package:test_farma/src/auth/presentation/controllers/auth/auth_state.dart';
 import 'package:test_farma/src/landing/widgets/app_bottom_bar.dart';
+import 'package:test_farma/src/landing/widgets/app_drawer.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
-      drawer: const Drawer(),
+      drawer: const AppDrawer(),
       body: Beamer(
         key: _beamerKey,
         routerDelegate: nestedRouterDelegate,

@@ -29,7 +29,7 @@ BeamerDelegate routerDelegate = BeamerDelegate(
   initialPath: AppPages.splash.path,
   locationBuilder: RoutesLocationBuilder(
     routes: {
-      '*': (context, state, data) => LandingPage(),
+      '*': (context, state, data) => const LandingPage(),
     },
   ),
 );

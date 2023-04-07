@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_farma/common/constants/constants.dart';
 import 'package:test_farma/common/errors/failure.dart';
 import 'package:test_farma/src/auth/data/datasources/auth_datasource.dart';
@@ -26,9 +25,13 @@ class AuthRepositoryImpl with AuthRepository {
   Future<Either<Failure, bool>> getAuthStatus() async {
     await Future.delayed(mockDuration);
 
-    var tokens = Hive.box('token');
+    try {
+      final result = await _authDatasource.hasToken();
 
-    return Right(tokens.isNotEmpty);
+      return Right(result);
+    } on Exception {
+      return Left(CacheFailure());
+    }
   }
 
   @override
@@ -49,6 +52,8 @@ class AuthRepositoryImpl with AuthRepository {
       if (result.jwt.isNotEmpty) {
         // TODO: Save token to DB
         // Matusevich Vyacheslav <Telegram: @CoMatu>, 07 April 2023
+
+        await _authDatasource.saveToken(result);
         return const Right(true);
       } else {
         return Left(ForbiddenFailure());

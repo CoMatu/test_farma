@@ -21,7 +21,7 @@ class AppBinding implements Bindings {
     Get.lazyPut<ApiService>(() => ApiService());
 
     // --- Cache --- //
-    Get.lazyPut<CacheManager>(() => CacheManagerImpl());
+    Get.lazyPut<CacheManager>(() => CacheManagerImpl(Get.find()));
 
     // --- Auth --- //
     Get.lazyPut<AuthDatasource>(() => AuthDatasource(

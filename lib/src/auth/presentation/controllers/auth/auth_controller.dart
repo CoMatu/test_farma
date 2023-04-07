@@ -26,7 +26,7 @@ class AuthController extends GetxController {
     _authenticationStateStream.value = Authenticated();
   }
 
-  void signOut() async {
+  void logout() async {
     _authenticationStateStream.value = AuthenticationLoading();
 
     await _authRepository.logout();
