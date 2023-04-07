@@ -16,12 +16,6 @@ class AuthController extends GetxController {
   AuthenticationState get state => _authenticationStateStream.value;
   Rx<AuthenticationState> get stateStream => _authenticationStateStream;
 
-  @override
-  void onInit() {
-    _getAuthenticatedUser();
-    super.onInit();
-  }
-
   Future<void> signInSuccess() async {
     _authenticationStateStream.value = Authenticated();
   }
@@ -33,7 +27,7 @@ class AuthController extends GetxController {
     _authenticationStateStream.value = UnAuthenticated();
   }
 
-  Future<void> _getAuthenticatedUser() async {
+  Future<void> getAuthenticatedUser() async {
     _authenticationStateStream.value = AuthenticationLoading();
 
     final result = await _authRepository.getAuthStatus();
@@ -43,6 +37,5 @@ class AuthController extends GetxController {
       (r) => _authenticationStateStream.value =
           r ? Authenticated() : UnAuthenticated(),
     );
-    log('AUTH_STATE: $commentBgCyan$state');
   }
 }

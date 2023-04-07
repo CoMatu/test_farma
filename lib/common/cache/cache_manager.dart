@@ -9,6 +9,7 @@ abstract class CacheManager {
   Future<bool> removeUserRequestCache(String key);
   Future<bool> hasToken();
   Future<void> saveToken(LoginResponse result);
+  Future<bool> logout();
 }
 
 class CacheManagerImpl implements CacheManager {
@@ -54,5 +55,10 @@ class CacheManagerImpl implements CacheManager {
   @override
   Future<void> saveToken(LoginResponse result) async {
     return await _hiveService.saveToken(result);
+  }
+
+  @override
+  Future<bool> logout() async {
+    return await _hiveService.deleteToken();
   }
 }

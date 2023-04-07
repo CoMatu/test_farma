@@ -85,6 +85,11 @@ class SignInController extends GetxController {
             password: _password.value,
           );
           _authController.signInSuccess();
+
+          /// reset state of controller
+          _state.value = const InitialSignInState();
+          _login.value = '';
+          _password.value = '';
         },
       );
     } else {

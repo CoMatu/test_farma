@@ -44,22 +44,10 @@ final nestedRouterDelegate = BeamerDelegate(
       FavoritesLocation(),
       NotFoundLocation(),
     ],
-  )
-  /* (routeInformation, _) {
-    log("${commentRed}routerDelegate | buildListener() | "
-        "location: ${routeInformation.location}");
-    if (routeInformation.location!.contains(AppPages.contacts.name)) {
-      return ContactsLocation();
-    } else if (routeInformation.location!.contains(AppPages.splash.name)) {
-      return SplashLocation();
-    } else if (routeInformation.location!.contains(AppPages.favorites.name)) {
-      return FavoritesLocation();
-    } else if (routeInformation.location!.contains(AppPages.login.name)) {
-      return LoginLocation();
-    }
-    return NotFoundLocation();
-  } */
-  ,
+  ),
+  buildListener: (context, delegate) {
+    log('$commentBgGreen${delegate.configuration.location}');
+  },
   guards: [
     BeamGuard(
       pathPatterns: ["/contacts", "/favorites"],

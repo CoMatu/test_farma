@@ -17,10 +17,7 @@ class AuthDatasource {
         _cacheManager = cacheManager;
 
   Future<bool> logout() async {
-    return await Future.delayed(
-      mockDuration,
-      () => true,
-    );
+    return await _cacheManager.logout();
   }
 
   Future<LoginResponse> signIn(LoginRequest loginRequest) async {

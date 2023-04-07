@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multitool/constants.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/common/router/app_router.dart';
 import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
@@ -23,11 +26,14 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
+    controller.getAuthenticatedUser();
     controller.stateStream.listen(stateListener);
     super.initState();
   }
 
   void stateListener(AuthenticationState state) {
+    log('AUTH_STATE: $commentBgCyan$state');
+
     /// слушаем контроллер и меняем пейджи
     if (state is Authenticated) {
       _beamerKey.currentState?.routerDelegate
@@ -36,13 +42,18 @@ class _LandingPageState extends State<LandingPage> {
     if (state is UnAuthenticated) {
       _beamerKey.currentState?.routerDelegate.beamToNamed(AppPages.login.path);
     }
+    if (state is AuthenticationLoading) {
+      _beamerKey.currentState?.routerDelegate.beamToNamed(AppPages.splash.path);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(
+        drawerKey: _drawerKey,
+      ),
       body: Beamer(
         key: _beamerKey,
         routerDelegate: nestedRouterDelegate,
@@ -50,7 +61,9 @@ class _LandingPageState extends State<LandingPage> {
       bottomNavigationBar: AppBottomBar(
         beamerKey: _beamerKey,
         onShowDrawer: () {
-          _drawerKey.currentState?.openDrawer();
+          if (controller.state is Authenticated) {
+            _drawerKey.currentState?.openDrawer();
+          }
         },
       ),
     );

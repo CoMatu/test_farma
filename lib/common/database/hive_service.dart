@@ -21,4 +21,9 @@ class HiveService {
   Future<LoginResponse?> readToken() async {
     return await _tokenBox?.get('token');
   }
+
+  Future<bool> deleteToken() async {
+    await _tokenBox?.deleteAll(['token']);
+    return true;
+  }
 }
