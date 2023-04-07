@@ -15,6 +15,7 @@ class AppTextField extends StatelessWidget {
     this.titleTextStyle,
     this.onSubmitted,
     this.errorText,
+    this.autofocus = false,
   }) : super(key: key);
 
   final String title;
@@ -26,6 +27,7 @@ class AppTextField extends StatelessWidget {
   final TextStyle? titleTextStyle;
   final void Function(String)? onSubmitted;
   final TextEditingController? controller;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class AppTextField extends StatelessWidget {
           title,
         ).paddingOnly(bottom: 6.0),
         TextField(
+          autofocus: autofocus,
           controller: controller,
           autocorrect: false,
           selectionHeightStyle: BoxHeightStyle.max,

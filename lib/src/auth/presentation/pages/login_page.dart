@@ -4,6 +4,7 @@ import 'package:test_farma/common/constants/constants.dart';
 import 'package:test_farma/src/auth/presentation/controllers/sign_in/signin_controller.dart';
 import 'package:test_farma/src/auth/presentation/controllers/sign_in/signin_state.dart';
 import 'package:test_farma/src/auth/presentation/widgets/login_input_widget.dart';
+import 'package:test_farma/src/auth/presentation/widgets/password_input_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -23,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
     signInController = Get.find<SignInController>();
     loginController = TextEditingController(text: signInController.login)
       ..addListener(loginListener);
+    passwordController = TextEditingController(text: signInController.password)
+      ..addListener(passwordListener);
     super.initState();
   }
 
@@ -48,8 +51,18 @@ class _LoginPageState extends State<LoginPage> {
                   errorText: signInController.error,
                 )
               : signInController.state is PasswordWaitSignInState ||
-                      signInController.state is ProcessingSignInState
-                  ? Container()
+                      signInController.state is ProcessingSignInState ||
+                      signInController.state is FailureSignInState
+                  ? PasswordInputWidget(
+                      controller: passwordController,
+                      errorText: signInController.error,
+                      onPasswordCompleted: onPasswordCompleted,
+                      sendIsActive:
+                          signInController.state is! ProcessingSignInState,
+                      onBackPressed: () {
+                        signInController.backToLogin();
+                      },
+                    )
                   : Container(),
         ),
       ),
@@ -61,9 +74,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void loginListener() {
-    final login = loginController.text;
-    if (login.isNotEmpty) {
-      signInController.changeLogin(login);
-    }
+    signInController.changeLogin(loginController.text);
+  }
+
+  void passwordListener() {
+    signInController.changePassword(passwordController.text);
+  }
+
+  void onPasswordCompleted() {
+    signInController.onPasswordCompleted();
   }
 }

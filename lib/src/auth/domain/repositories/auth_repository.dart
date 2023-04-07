@@ -42,11 +42,15 @@ class AuthRepositoryImpl with AuthRepository {
 
   @override
   Future<Either<Failure, bool>> signIn(LoginRequest loginRequest) async {
-    final result = await _authApi.signIn(loginRequest);
+    try {
+      final result = await _authApi.signIn(loginRequest);
 
-    if (result.jwt.isNotEmpty) {
-      return const Right(true);
-    } else {
+      if (result.jwt.isNotEmpty) {
+        return const Right(true);
+      } else {
+        return Left(ForbiddenFailure());
+      }
+    } on Exception {
       return Left(ForbiddenFailure());
     }
   }

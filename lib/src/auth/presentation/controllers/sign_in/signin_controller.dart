@@ -33,7 +33,6 @@ class SignInController extends GetxController {
 
   void changeLogin(String login) {
     _login.value = login;
-    _errorText.value = null;
   }
 
   void onLoginCompleted() {
@@ -49,25 +48,33 @@ class SignInController extends GetxController {
   }
 
   Future<void> onPasswordCompleted() async {
-    _state.value = ProcessingSignInState(
-      login: _login.value,
-      password: _password.value,
-    );
-
-    final result = await _authRepository.signIn(
-      LoginRequest(
+    if (passwordIsValid) {
+      _state.value = ProcessingSignInState(
         login: _login.value,
         password: _password.value,
-      ),
-    );
+      );
 
-    result.fold(
-      (l) => _state.value = FailureSignInState(
-          login: _login.value, password: _password.value, failure: l),
-      (r) => _state.value = SuccessSignInState(
-        login: _login.value,
-        password: _password.value,
-      ),
-    );
+      final result = await _authRepository.signIn(
+        LoginRequest(
+          login: _login.value,
+          password: _password.value,
+        ),
+      );
+
+      result.fold(
+        (l) => _state.value = FailureSignInState(
+            login: _login.value, password: _password.value, failure: l),
+        (r) => _state.value = SuccessSignInState(
+          login: _login.value,
+          password: _password.value,
+        ),
+      );
+    } else {
+      _errorText.value = 'Поле обязательно для заполнения';
+    }
+  }
+
+  void backToLogin() {
+    _state.value = LoginCompletedSignInState(login: login);
   }
 }
