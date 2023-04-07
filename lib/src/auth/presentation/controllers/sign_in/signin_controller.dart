@@ -33,6 +33,9 @@ class SignInController extends GetxController {
 
   void changeLogin(String login) {
     _login.value = login;
+    if (login.isNotEmpty) {
+      _errorText.value = null;
+    }
   }
 
   void onLoginCompleted() {
@@ -45,6 +48,9 @@ class SignInController extends GetxController {
 
   void changePassword(String password) {
     _password.value = password;
+    if (password.isNotEmpty) {
+      _errorText.value = null;
+    }
   }
 
   Future<void> onPasswordCompleted() async {
@@ -62,8 +68,11 @@ class SignInController extends GetxController {
       );
 
       result.fold(
-        (l) => _state.value = FailureSignInState(
-            login: _login.value, password: _password.value, failure: l),
+        (l) {
+          _state.value = FailureSignInState(
+              login: _login.value, password: _password.value, failure: l);
+          _errorText.value = 'Доступ запрещен, проверьте логин или пароль';
+        },
         (r) => _state.value = SuccessSignInState(
           login: _login.value,
           password: _password.value,
