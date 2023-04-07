@@ -30,7 +30,7 @@ class LoginInputWidget extends StatelessWidget {
         ).paddingSymmetric(vertical: 24.0),
         AppButton(
           title: 'Далее',
-          onLoginCompleted: onLoginCompleted,
+          onPressed: onLoginCompleted,
         ),
       ],
     );

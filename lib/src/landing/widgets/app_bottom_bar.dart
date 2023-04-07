@@ -70,8 +70,11 @@ class _AppBottomBarState extends State<AppBottomBar> {
     final index =
         (widget.beamerKey.currentState?.currentBeamLocation is ContactsLocation)
             ? 0
-            : 1;
-    if (index != _currentIndex) {
+            : (widget.beamerKey.currentState?.currentBeamLocation
+                    is FavoritesLocation)
+                ? 1
+                : -1;
+    if (index != _currentIndex && index >= 0) {
       setState(() => _currentIndex = index);
     }
   }
