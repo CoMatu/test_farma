@@ -11,4 +11,9 @@ class HiveService {
     /// open boxes
     await Hive.openBox('token'); // храним токены jwt & refresh
   }
+
+  Future<void> saveToken() async {
+    // TODO: сделать имплементацию
+    // Matusevich Vyacheslav <Telegram: @CoMatu>, 07 April 2023
+  }
 }

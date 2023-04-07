@@ -17,9 +17,10 @@ abstract class AuthRepository {
 }
 
 class AuthRepositoryImpl with AuthRepository {
-  final AuthDatasource _authApi;
+  final AuthDatasource _authDatasource;
 
-  AuthRepositoryImpl(AuthDatasource authApi) : _authApi = authApi;
+  AuthRepositoryImpl(AuthDatasource authDatasource)
+      : _authDatasource = authDatasource;
 
   @override
   Future<Either<Failure, bool>> getAuthStatus() async {
@@ -33,7 +34,7 @@ class AuthRepositoryImpl with AuthRepository {
   @override
   Future<Either<Failure, bool>> logout() async {
     try {
-      final bool result = await _authApi.logout();
+      final bool result = await _authDatasource.logout();
       return Right(result);
     } catch (e) {
       return Left(LogoutFailure());
@@ -43,9 +44,11 @@ class AuthRepositoryImpl with AuthRepository {
   @override
   Future<Either<Failure, bool>> signIn(LoginRequest loginRequest) async {
     try {
-      final result = await _authApi.signIn(loginRequest);
+      final result = await _authDatasource.signIn(loginRequest);
 
       if (result.jwt.isNotEmpty) {
+        // TODO: Save token to DB
+        // Matusevich Vyacheslav <Telegram: @CoMatu>, 07 April 2023
         return const Right(true);
       } else {
         return Left(ForbiddenFailure());
