@@ -14,10 +14,12 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.titleTextStyle,
     this.onSubmitted,
+    this.errorText,
   }) : super(key: key);
 
   final String title;
   final String? hintText;
+  final String? errorText;
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final bool obscureText;
@@ -50,6 +52,7 @@ class AppTextField extends StatelessWidget {
             suffixIconConstraints:
                 const BoxConstraints(maxWidth: 48.0, minWidth: 48.0),
             errorStyle: const TextStyle(height: 0),
+            errorText: errorText,
           ),
           obscureText: obscureText,
           obscuringCharacter: '\u002a',

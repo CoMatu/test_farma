@@ -18,6 +18,9 @@ class FarmaApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       routeInformationParser: BeamerParser(),
       routerDelegate: routerDelegate,
+      backButtonDispatcher: BeamerBackButtonDispatcher(
+        delegate: routerDelegate,
+      ),
     );
   }
 }

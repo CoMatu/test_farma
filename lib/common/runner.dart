@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:beamer/beamer.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/common/di/app_binding.dart';
@@ -26,6 +27,9 @@ class Runner {
     WidgetsFlutterBinding.ensureInitialized();
     // удалить # из url
     Beamer.setPathUrlStrategy();
+
+    /// Фиксируем портретный режим
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     await AppBinding().dependencies();
   }

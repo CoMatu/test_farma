@@ -11,12 +11,15 @@ class SignInController extends GetxController {
 
   final _login = ''.obs;
   final _password = ''.obs;
+  final _errorText = Rxn<String>();
+
   final _state = const SignInState().obs;
 
   SignInState get state => _state.value;
 
   String get login => _login.value;
   String get password => _password.value;
+  String? get error => _errorText.value;
 
   /// validators
   bool get loginIsValid => _login.value.isNotEmpty;
@@ -30,10 +33,15 @@ class SignInController extends GetxController {
 
   void changeLogin(String login) {
     _login.value = login;
+    _errorText.value = null;
   }
 
   void onLoginCompleted() {
-    _state.value = PasswordWaitSignInState(login: _login.value);
+    if (loginIsValid) {
+      _state.value = PasswordWaitSignInState(login: _login.value);
+    } else {
+      _errorText.value = 'Поле обязательно для заполнения';
+    }
   }
 
   void changePassword(String password) {

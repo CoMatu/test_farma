@@ -21,8 +21,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     signInController = Get.find<SignInController>();
-    loginController = TextEditingController(text: signInController.login);
+    loginController = TextEditingController(text: signInController.login)
+      ..addListener(loginListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
                   signInController.state is LoginCompletedSignInState
               ? LoginInputWidget(
                   controller: loginController,
-                  onLoginCompleted: () {},
+                  onLoginCompleted: onLoginCompleted,
+                  errorText: signInController.error,
                 )
               : signInController.state is PasswordWaitSignInState ||
                       signInController.state is ProcessingSignInState
@@ -45,5 +54,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void onLoginCompleted() {
+    signInController.onLoginCompleted();
+  }
+
+  void loginListener() {
+    final login = loginController.text;
+    if (login.isNotEmpty) {
+      signInController.changeLogin(login);
+    }
   }
 }

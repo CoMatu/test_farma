@@ -20,6 +20,11 @@ class PasswordInputWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Icon(
+          Icons.password_rounded,
+          size: 120.0,
+          color: Theme.of(context).primaryColor,
+        ),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 300.0),
           child: AppTextField(

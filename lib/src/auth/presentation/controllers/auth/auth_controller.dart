@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter_multitool/constants.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';
 import 'package:test_farma/src/auth/domain/repositories/auth_repository.dart';
@@ -12,6 +15,7 @@ class AuthController extends GetxController {
       : _authRepository = authRepository;
 
   AuthenticationState get state => _authenticationStateStream.value;
+  Rx<AuthenticationState> get stateStream => _authenticationStateStream;
 
   @override
   void onInit() {
@@ -48,5 +52,6 @@ class AuthController extends GetxController {
       (r) => _authenticationStateStream.value =
           r ? Authenticated() : UnAuthenticated(),
     );
+    log('AUTH_STATE: $commentBgCyan$state');
   }
 }

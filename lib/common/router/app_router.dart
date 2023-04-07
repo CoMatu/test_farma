@@ -36,7 +36,16 @@ BeamerDelegate routerDelegate = BeamerDelegate(
 
 /// Nested pages
 final nestedRouterDelegate = BeamerDelegate(
-  locationBuilder: (routeInformation, _) {
+  locationBuilder: BeamerLocationBuilder(
+    beamLocations: [
+      SplashLocation(),
+      LoginLocation(),
+      ContactsLocation(),
+      FavoritesLocation(),
+      NotFoundLocation(),
+    ],
+  )
+  /* (routeInformation, _) {
     log("${commentRed}routerDelegate | buildListener() | "
         "location: ${routeInformation.location}");
     if (routeInformation.location!.contains(AppPages.contacts.name)) {
@@ -47,29 +56,19 @@ final nestedRouterDelegate = BeamerDelegate(
       return FavoritesLocation();
     } else if (routeInformation.location!.contains(AppPages.login.name)) {
       return LoginLocation();
-    } else {
-      return NotFoundLocation();
     }
-  },
-  buildListener: (context, delegate) {
-    final location = Beamer.of(context).configuration.location;
-    log("${commentCyan}routerDelegate | buildListener() | "
-        "location: $location");
-  },
+    return NotFoundLocation();
+  } */
+  ,
   guards: [
     BeamGuard(
-      pathPatterns: [AppPages.contacts.path, AppPages.favorites.path],
+      pathPatterns: ["/contacts", "/favorites"],
       check: (_, __) {
-        // log("${commentCyan}routerDelegate | "
-        //     "BeamGuard | check() | is about to retrieve signedIn state");
-
-        //  final signedIn = Get.find<AuthController>().state is Authenticated;
-        // log("${commentCyan}routerDelegate | "
-        //     "BeamGuard | check() | obtained signedIn state: $signedIn");
-        return false;
+        log("${commentCyan}routerDelegate | "
+            "BeamGuard | check() | is about to retrieve signedIn state");
+        return Get.find<AuthController>().state is Authenticated;
       },
       beamToNamed: (origin, target) => AppPages.login.path,
-      //beamToNamed: (origin, target) => '/login',
     ),
   ],
 );
