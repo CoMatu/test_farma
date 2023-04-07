@@ -30,7 +30,10 @@ class AppBinding implements Bindings {
         ));
     Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(Get.find()));
     Get.lazyPut<AuthController>(() => AuthController(Get.find()));
-    Get.lazyPut<SignInController>(() => SignInController(Get.find()));
+    Get.lazyPut<SignInController>(() => SignInController(
+          authController: Get.find(),
+          authRepository: Get.find(),
+        ));
 
     // --- ... --- //
   }

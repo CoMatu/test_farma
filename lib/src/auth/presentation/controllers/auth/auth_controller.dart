@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter_multitool/constants.dart';
 import 'package:get/get.dart';
-import 'package:test_farma/src/auth/data/models/login_request.dart';
 import 'package:test_farma/src/auth/domain/repositories/auth_repository.dart';
 
 import 'auth_state.dart';
@@ -23,16 +22,8 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-  Future<void> signIn(String email, String password) async {
-    _authenticationStateStream.value = AuthenticationLoading();
-
-    final result = await _authRepository.signIn(
-      LoginRequest(login: email, password: password),
-    );
-    result.fold(
-      (l) => _authenticationStateStream.value = UnAuthenticated(),
-      (r) => _authenticationStateStream.value = Authenticated(),
-    );
+  Future<void> signInSuccess() async {
+    _authenticationStateStream.value = Authenticated();
   }
 
   void signOut() async {

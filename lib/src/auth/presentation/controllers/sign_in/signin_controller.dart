@@ -1,13 +1,19 @@
 import 'package:get/get.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';
 import 'package:test_farma/src/auth/domain/repositories/auth_repository.dart';
+import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
 import 'package:test_farma/src/auth/presentation/controllers/sign_in/signin_state.dart';
 
 class SignInController extends GetxController {
   final AuthRepository _authRepository;
+  final AuthController _authController;
 
-  SignInController(AuthRepository authRepository)
-      : _authRepository = authRepository;
+  SignInController({
+    required AuthRepository authRepository,
+    required AuthController authController,
+  })  : _authRepository = authRepository,
+        _authController = authController,
+        super();
 
   final _login = ''.obs;
   final _password = ''.obs;
@@ -73,10 +79,13 @@ class SignInController extends GetxController {
               login: _login.value, password: _password.value, failure: l);
           _errorText.value = 'Доступ запрещен, проверьте логин или пароль';
         },
-        (r) => _state.value = SuccessSignInState(
-          login: _login.value,
-          password: _password.value,
-        ),
+        (r) {
+          _state.value = SuccessSignInState(
+            login: _login.value,
+            password: _password.value,
+          );
+          _authController.signInSuccess();
+        },
       );
     } else {
       _errorText.value = 'Поле обязательно для заполнения';

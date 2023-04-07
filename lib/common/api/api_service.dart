@@ -4,7 +4,9 @@ import 'package:test_farma/src/auth/data/models/login_response.dart';
 
 class ApiService {
   Future<LoginResponse> login(LoginRequest loginRequest) async {
-    if (loginRequest.login == 'admin' && loginRequest.password == 'admin') {
+    final success =
+        loginRequest.login == 'admin' && loginRequest.password == 'admin';
+    if (success) {
       return Future.value(
         const LoginResponse(
           jwt: 'jwt',
