@@ -10,3 +10,7 @@ delete-merged:
 .PHONY: Запуск интеграционных тестов (all tests)
 integr-test:
 	$(FLUTTER) flutter test integration_test
+
+.PHONY: генерация prod конфига
+config:
+	$(FLUTTER) flutter pub run environment_config:generate

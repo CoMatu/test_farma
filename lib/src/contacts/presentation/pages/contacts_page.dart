@@ -30,6 +30,12 @@ class ContactsPage extends GetView<ContactsController> {
           ],
         );
       }),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: onPressed,
+      ),
     );
   }
+
+  void onPressed() {}
 }

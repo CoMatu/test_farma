@@ -41,7 +41,10 @@ class AppBinding implements Bindings {
     // --- Contacts --- //
     Get.lazyPut<ContactsRemoteDatasource>(
         () => ContactsRemoteDatasource(Get.find()));
-    Get.lazyPut<ContactRepository>(() => ContactRepositoryImpl(Get.find()));
+    Get.lazyPut<ContactRepository>(() => ContactRepositoryImpl(
+          remoteDatasource: Get.find(),
+          cacheManager: Get.find(),
+        ));
     Get.lazyPut<ContactsController>(() => ContactsController(Get.find()));
   }
 }

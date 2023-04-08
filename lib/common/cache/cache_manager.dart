@@ -1,10 +1,10 @@
+import 'package:test_farma/common/cache/cache_model.dart';
 import 'package:test_farma/common/database/hive_service.dart';
 import 'package:test_farma/src/auth/data/models/login_response.dart';
 
 abstract class CacheManager {
-  Future<bool> writeUserRequestDataWithTime(
-      String key, String model, Duration time);
-  Future<String> getUserRequestDataOnString(String key);
+  Future<bool> writeUserRequestDataWithTime(String key, CacheModel model);
+  Future<CacheModel?> getUserRequestDataOnString(String key);
   Future<bool> removeUserRequestSingleCache(String key);
   Future<bool> removeUserRequestCache(String key);
   Future<bool> hasToken();
@@ -20,9 +20,8 @@ class CacheManagerImpl implements CacheManager {
         super();
 
   @override
-  Future<String> getUserRequestDataOnString(String key) async {
-    // TODO: implement getUserRequestDataOnString
-    throw UnimplementedError();
+  Future<CacheModel?> getUserRequestDataOnString(String key) async {
+    return await _hiveService.getUserRequestDataOnString(key);
   }
 
   @override
@@ -39,9 +38,8 @@ class CacheManagerImpl implements CacheManager {
 
   @override
   Future<bool> writeUserRequestDataWithTime(
-      String key, String model, Duration time) async {
-    // TODO: implement writeUserRequestDataWithTime
-    throw UnimplementedError();
+      String key, CacheModel model) async {
+    return _hiveService.writeUserRequestDataWithTime(key, model);
   }
 
   @override

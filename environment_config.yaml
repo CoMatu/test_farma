@@ -1,0 +1,12 @@
+environment_config:
+  path: environment_config.dart
+  class: EnvironmentConfig
+  fields:
+  # contacts from server
+    jsonUrl:
+      default: 'https://raw.githubusercontent.com/sizovsv/test-assignment/main/json/contacts/json'
+
+    cacheTime:
+      # duration in seconds
+      default: 3600
+      type: int
