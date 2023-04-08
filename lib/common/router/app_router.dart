@@ -29,36 +29,9 @@ BeamerDelegate routerDelegate = BeamerDelegate(
   initialPath: AppPages.splash.path,
   locationBuilder: RoutesLocationBuilder(
     routes: {
-      '*': (context, state, data) => const LandingPage(),
+      '*': (context, state, data) => LandingPage(),
     },
   ),
-);
-
-/// Nested pages
-final nestedRouterDelegate = BeamerDelegate(
-  locationBuilder: BeamerLocationBuilder(
-    beamLocations: [
-      SplashLocation(),
-      LoginLocation(),
-      ContactsLocation(),
-      FavoritesLocation(),
-      NotFoundLocation(),
-    ],
-  ),
-  buildListener: (context, delegate) {
-    log('$commentBgGreen${delegate.configuration.location}');
-  },
-  guards: [
-    BeamGuard(
-      pathPatterns: ["/contacts", "/favorites"],
-      check: (_, __) {
-        log("${commentCyan}routerDelegate | "
-            "BeamGuard | check() | is about to retrieve signedIn state");
-        return Get.find<AuthController>().state is Authenticated;
-      },
-      beamToNamed: (origin, target) => AppPages.login.path,
-    ),
-  ],
 );
 
 class SplashLocation extends BeamLocation<BeamState> {

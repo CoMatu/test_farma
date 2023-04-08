@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:test_farma/common/constants/constants.dart';
@@ -23,9 +24,9 @@ class ApiService {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getContacts() async {
+  Future<Map<String, dynamic>> getContacts() async {
     final response = await http.get(Uri.parse(jsonUrl));
     log(response.toString());
-    throw UnimplementedError();
+    return jsonDecode(response.body);
   }
 }

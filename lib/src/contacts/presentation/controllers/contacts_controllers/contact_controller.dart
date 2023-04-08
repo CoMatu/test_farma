@@ -13,6 +13,12 @@ class ContactsController extends GetxController {
 
   ContactsState get state => _contactsState.value;
 
+  @override
+  void onInit() {
+    getContacts();
+    super.onInit();
+  }
+
   Future<void> getContacts() async {
     final result = await _contactRepository.getContacts();
 

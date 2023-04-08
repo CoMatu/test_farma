@@ -8,9 +8,9 @@ class ContactEntity extends Equatable {
   @HiveField(0)
   final String name;
   @HiveField(1)
-  final String middleName;
+  final String? middleName;
   @HiveField(2)
-  final String? surname;
+  final String surname;
   @HiveField(3)
   final String phone;
   @HiveField(4)
@@ -20,8 +20,8 @@ class ContactEntity extends Equatable {
 
   const ContactEntity({
     required this.name,
-    required this.middleName,
-    this.surname,
+    this.middleName,
+    required this.surname,
     required this.phone,
     required this.favorite,
     required this.tags,
@@ -31,7 +31,7 @@ class ContactEntity extends Equatable {
   List<Object> get props {
     return [
       name,
-      middleName,
+      surname,
       phone,
       favorite,
       tags,

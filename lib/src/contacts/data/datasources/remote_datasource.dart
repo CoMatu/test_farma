@@ -5,7 +5,7 @@ class ContactsRemoteDatasource {
 
   ContactsRemoteDatasource(ApiService apiService) : _apiService = apiService;
 
-  Future<List<Map<String, dynamic>>> fetchContacts() async {
+  Future<Map<String, dynamic>> fetchContacts() async {
     return await _apiService.getContacts();
   }
 }

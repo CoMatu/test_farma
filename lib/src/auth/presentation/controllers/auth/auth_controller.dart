@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter_multitool/constants.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/src/auth/domain/repositories/auth_repository.dart';
 
@@ -14,6 +11,7 @@ class AuthController extends GetxController {
       : _authRepository = authRepository;
 
   AuthenticationState get state => _authenticationStateStream.value;
+
   Rx<AuthenticationState> get stateStream => _authenticationStateStream;
 
   Future<void> signInSuccess() async {

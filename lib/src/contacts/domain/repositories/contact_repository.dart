@@ -18,7 +18,9 @@ class ContactRepositoryImpl implements ContactRepository {
     try {
       final result = await _remoteDatasource.fetchContacts();
 
-      final list = result.map((e) => ContactEntity.fromMap(e)).toList();
+      final list = (result['data'] as List)
+          .map((e) => ContactEntity.fromMap(e))
+          .toList();
 
       return Right(list);
     } on Exception catch (e) {
