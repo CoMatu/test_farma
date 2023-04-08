@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:test_farma/common/constants/constants.dart';
 import 'package:test_farma/common/errors/exceptions.dart';
 import 'package:test_farma/environment_config.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';

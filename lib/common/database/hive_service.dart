@@ -42,4 +42,9 @@ class HiveService {
     final result = await _cacheBox?.get(key);
     return result;
   }
+
+  Future<bool> deleteAll() async {
+    await Hive.deleteFromDisk();
+    return true;
+  }
 }

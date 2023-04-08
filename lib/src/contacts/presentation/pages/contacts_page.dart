@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_farma/src/contacts/domain/entities/contact_entity.dart';
 import 'package:test_farma/src/contacts/presentation/controllers/contacts_controllers/contact_controller.dart';
 import 'package:test_farma/src/contacts/presentation/widgets/contact_card.dart';
 
@@ -31,8 +30,8 @@ class ContactsPage extends GetView<ContactsController> {
         );
       }),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
         onPressed: onPressed,
+        child: const Icon(Icons.add),
       ),
     );
   }

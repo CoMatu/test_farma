@@ -57,6 +57,6 @@ class CacheManagerImpl implements CacheManager {
 
   @override
   Future<bool> logout() async {
-    return await _hiveService.deleteToken();
+    return await _hiveService.deleteAll();
   }
 }
