@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:test_farma/common/constants/constants.dart';
 import 'package:test_farma/common/errors/exceptions.dart';
+import 'package:test_farma/environment_config.dart';
 import 'package:test_farma/src/auth/data/models/login_request.dart';
 import 'package:test_farma/src/auth/data/models/login_response.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> getContacts() async {
-    final response = await http.get(Uri.parse(jsonUrl));
+    final response = await http.get(Uri.parse(EnvironmentConfig.jsonUrl));
     log(response.toString());
     return jsonDecode(response.body);
   }
