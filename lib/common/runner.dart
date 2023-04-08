@@ -30,6 +30,7 @@ class Runner {
     /// Фиксируем портретный режим
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+    /// инициализируем зависимости для DI
     await AppBinding().dependencies();
   }
 }

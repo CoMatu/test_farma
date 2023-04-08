@@ -6,6 +6,9 @@ import 'package:test_farma/src/auth/data/datasources/auth_datasource.dart';
 import 'package:test_farma/src/auth/domain/repositories/auth_repository.dart';
 import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
 import 'package:test_farma/src/auth/presentation/controllers/sign_in/signin_controller.dart';
+import 'package:test_farma/src/contacts/data/datasources/remote_datasource.dart';
+import 'package:test_farma/src/contacts/domain/repositories/contact_repository.dart';
+import 'package:test_farma/src/contacts/presentation/controllers/contacts_controllers/contact_controller.dart';
 
 class AppBinding implements Bindings {
   @override
@@ -35,6 +38,10 @@ class AppBinding implements Bindings {
           authRepository: Get.find(),
         ));
 
-    // --- ... --- //
+    // --- Contacts --- //
+    Get.lazyPut<ContactsRemoteDatasource>(
+        () => ContactsRemoteDatasource(Get.find()));
+    Get.lazyPut<ContactRepository>(() => ContactRepositoryImpl(Get.find()));
+    Get.lazyPut<ContactsController>(() => ContactsController(Get.find()));
   }
 }
