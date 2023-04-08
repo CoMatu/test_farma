@@ -5,7 +5,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_multitool/constants.dart';
 import 'package:test_farma/common/cache/cache_manager.dart';
 import 'package:test_farma/common/cache/cache_model.dart';
-import 'package:test_farma/common/constants/constants.dart';
 import 'package:test_farma/common/errors/failure.dart';
 import 'package:test_farma/environment_config.dart';
 import 'package:test_farma/src/contacts/data/datasources/remote_datasource.dart';
@@ -53,7 +52,9 @@ class ContactRepositoryImpl implements ContactRepository {
       final expired = DateTime.now()
           .add(const Duration(seconds: EnvironmentConfig.cacheTime));
       final CacheModel model = CacheModel(
-          url: jsonUrl, expired: expired, jsonData: jsonEncode(result['data']));
+          url: EnvironmentConfig.jsonUrl,
+          expired: expired,
+          jsonData: jsonEncode(result['data']));
 
       await _cacheManager.writeUserRequestDataWithTime('contacts', model);
 

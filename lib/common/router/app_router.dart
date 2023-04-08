@@ -1,11 +1,5 @@
-import 'dart:developer';
-
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_multitool/flutter_multitool.dart';
-import 'package:get/get.dart';
-import 'package:test_farma/src/auth/presentation/controllers/auth/auth_controller.dart';
-import 'package:test_farma/src/auth/presentation/controllers/auth/auth_state.dart';
 import 'package:test_farma/src/auth/presentation/pages/login_page.dart';
 import 'package:test_farma/src/auth/presentation/pages/splash_page.dart';
 import 'package:test_farma/src/contacts/presentation/pages/contacts_page.dart';
@@ -29,7 +23,7 @@ BeamerDelegate routerDelegate = BeamerDelegate(
   initialPath: AppPages.splash.path,
   locationBuilder: RoutesLocationBuilder(
     routes: {
-      '*': (context, state, data) => LandingPage(),
+      '*': (context, state, data) => const LandingPage(),
     },
   ),
 );
