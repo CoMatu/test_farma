@@ -36,6 +36,7 @@ class LoginInputWidget extends StatelessWidget {
                 controller: controller,
                 title: 'Укажите Ваш логин',
                 suffixIcon: const Icon(Icons.login),
+                onSubmitted: (_) => onLoginCompleted(),
               ),
             ),
             if (errorText != null)
