@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_farma/src/contacts/presentation/controllers/contact_form/contact_form_controller.dart';
 import 'package:test_farma/src/contacts/presentation/controllers/contacts_controllers/contact_controller.dart';
 import 'package:test_farma/src/contacts/presentation/widgets/add_contact_widget.dart';
 import 'package:test_farma/src/contacts/presentation/widgets/contact_card.dart';
@@ -38,6 +39,7 @@ class ContactsPage extends GetView<ContactsController> {
   }
 
   void addContact(BuildContext context) {
+    Get.put(ContactFormController());
     showModalBottomSheet(
       context: context,
       builder: (context) => const AddContactWidget(),

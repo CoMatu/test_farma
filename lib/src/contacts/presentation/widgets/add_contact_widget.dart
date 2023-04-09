@@ -57,17 +57,14 @@ class _ContactForm extends GetView<ContactFormController> {
             AppTextField(
               title: 'Укажите Ваше имя',
               controller: controller.nameController,
-              errorText: controller.validator(controller.nameController.text),
             ).paddingOnly(bottom: 8.0),
             AppTextField(
               title: 'Укажите Ваше отчество (необязательно)',
               controller: controller.middleController,
-              errorText: controller.validator(controller.middleController.text),
             ).paddingOnly(bottom: 8.0),
             AppTextField(
               title: 'Укажите Вашу фамилию',
               controller: controller.surname,
-              errorText: controller.validator(controller.surname.text),
             ).paddingOnly(bottom: 8.0),
             AppButton(onPressed: onPressed, title: 'Сохранить')
           ],
