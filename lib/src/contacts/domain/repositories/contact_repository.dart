@@ -34,7 +34,7 @@ class ContactRepositoryImpl implements ContactRepository {
       if (currentTime.isBefore(localData.expired)) {
         final map = jsonDecode(localData.jsonData) as List;
         final res = map.map((e) => ContactEntity.fromMap(e)).toList();
-        log('${commentBgGreen}RETURN_CACHED_DATA: $map');
+        log('$commentBgGreen${commentBlue}RETURN_CACHED_DATA: $map');
         return Right(res);
       } else {
         return await apiRequest();

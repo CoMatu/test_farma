@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_farma/src/contacts/presentation/controllers/contacts_controllers/contact_controller.dart';
+import 'package:test_farma/src/contacts/presentation/widgets/add_contact_widget.dart';
 import 'package:test_farma/src/contacts/presentation/widgets/contact_card.dart';
 
 class ContactsPage extends GetView<ContactsController> {
@@ -30,11 +31,16 @@ class ContactsPage extends GetView<ContactsController> {
         );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: onPressed,
+        onPressed: () => addContact(context),
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  void onPressed() {}
+  void addContact(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const AddContactWidget(),
+    );
+  }
 }
