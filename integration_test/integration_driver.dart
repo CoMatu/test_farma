@@ -8,6 +8,8 @@ Future<void> main() async {
       onScreenshot: (String screenshotName, List<int> screenshotBytes) async {
         final File image = await File('screenshots/$screenshotName.png')
             .create(recursive: true);
+        //log('Print file: $screenshotName');
+
         image.writeAsBytesSync(screenshotBytes);
         return true;
       },

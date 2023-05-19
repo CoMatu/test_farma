@@ -18,38 +18,11 @@ void main() {
     testWidgets('Ввод пинкода', (WidgetTester tester) async {
       app.main();
 
-      // final deviceParameters =
-      //     await AppRunner.initializeFlutterPluginsAndDependencies();
-
-      // await tester.pumpWidget(ThemeSwitcherWidget(
-      //   child: OfficeApp(
-      //     officeRouterDelegate: sl<OfficeRouterDelegate>(),
-      //     officeRouterInformationParser: OfficeRouterInformationParser(),
-      //     fcmToken: deviceParameters.fcmToken,
-      //   ),
-      // ));
-
-      // await tester.pumpAndSettle();
-
-      // await addDelay(1000);
-
-      // for (var i = 0; i < 4; i++) {
-      //   await addDelay(700);
-      //   await tester.tap(find.byKey(const ValueKey('pin-button-1')));
-      // }
-
-      // await addDelay(7000);
-
       await tester.pumpAndSettle();
-
-      // expect(
-      //   find.byKey(const ValueKey('bottomNavigationBar')),
-      //   findsOneWidget,
-      // );
 
       await addDelay(1000);
 
-      takeScreenshot(tester, binding, name: 'name');
+      await takeScreenshot(tester, binding, name: 'name');
 
       await addDelay(1000);
     });
